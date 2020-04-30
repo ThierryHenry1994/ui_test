@@ -97,13 +97,15 @@ def write_whole_html_file(Testcase, fail_num, result_list):
         write_table_title(html_table)
         write_html(result[0], result[1], result[2], html_table)
     # 判断是否存在存放html的文件夹
-    judge_file_path_exist("html_file")
+    # judge_file_path_exist("html_file")
     nowtime = arrow.utcnow().timestamp
     output_file = "ui_test.html"
+    if os.path.exists(output_file):
+        os.remove(output_file)
     html_file.printOut(output_file)
-    shutil.move(output_file, "html_file")
-    new_file = os.path.join("html_file", output_file)
-    return new_file
+    # shutil.move(output_file, "html_file")
+    # new_file = os.path.join("html_file", output_file)
+    return html_file
 
 
 
