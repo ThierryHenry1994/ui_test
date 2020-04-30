@@ -99,7 +99,7 @@ def write_whole_html_file(Testcase, fail_num, result_list):
     # 判断是否存在存放html的文件夹
     judge_file_path_exist("html_file")
     nowtime = arrow.utcnow().timestamp
-    output_file = str(nowtime)+".html"
+    output_file = "ui_test.html"
     html_file.printOut(output_file)
     shutil.move(output_file, "html_file")
     new_file = os.path.join("html_file", output_file)
