@@ -10,6 +10,7 @@ import time
 import sys
 import fire
 import logging
+sys.path.append('Testcase')
 reload(sys)
 sys.setdefaultencoding("UTF-8")
 '''
@@ -28,17 +29,22 @@ def trans_time(origin_time):
     return response_time
 
 
-# 判断是否成功，成功为0，失败为1
-def judge_fail_num(number):
-    if number == 0:
-        return True
+
 
 
 # 读取本次需要执行的场景
-def get_scene_from_json(json_file, floder):
-    json_file  = os.path.join(floder, json_file)
-    with open(json_file, "rb") as f:
-        scene = json.load(f)
+def get_scene_from_json(scenes):
+    scene_list = []
+    scene = scenes.split(",")
+    with open("testcase.txt", "rb") as f:
+        scene_dict = json.load(f)
+        for i in scene:
+            if i in scene_dict.keys():
+                scene_list.append(scene_dict[i.decode("utf-8")])
+    # print scene_list
+    return scene_list
+
+
 
 
 
@@ -73,11 +79,21 @@ def ui_test(browser, test_case, scene):
     send_html_mail(scene, test_num, html_list, browser)
 
 
+def test(scene, test_browser):
+    scene_list = get_scene_from_json(scene)
+    for num in scene_list:
+        os.system("python Testcase/"+num+" "+test_browser)
+        print num
+
+
 if __name__ == "__main__":
     # test_list = [open_web_ui_test, click_register_ui_test, get_into_lesson, add_meeting]
-    test_browser = "firefox"
+    scene = "三会一课,登录"
+    # scene_list = get_scene_from_json(scene)
 
-    ui_test(browser=test_browser, test_case=test_list, scene=scene)
+    test_browser = "firefox"
+    test(scene, test_browser)
+    # ui_test(browser=test_browser, test_case=test_list, scene=scene)
     # fire.Fire(ui_test)
 
 

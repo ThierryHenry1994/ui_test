@@ -1,1 +1,4 @@
-{"shyk.py": "三会一课","login.py": "登录"}
+{
+	"三会一课": "shyk.py",
+	"登录": "login.py"
+}
