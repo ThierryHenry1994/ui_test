@@ -88,13 +88,8 @@ def test(scene, test_browser):
 
 if __name__ == "__main__":
     # test_list = [open_web_ui_test, click_register_ui_test, get_into_lesson, add_meeting]
-    scene = "三会一课,登录"
-    # scene_list = get_scene_from_json(scene)
-
-    test_browser = "firefox"
-    test(scene, test_browser)
     # ui_test(browser=test_browser, test_case=test_list, scene=scene)
-    # fire.Fire(ui_test)
+    fire.Fire(test)
 
 
 
