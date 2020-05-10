@@ -13,7 +13,7 @@ white_background_color = "#F7F7F7"
 
 
 # 写表头
-def write_title(test_case, fail_num, html_page, table):
+def write_title(test_case, fail_num, html_page, table, browser):
 
     if fail_num == 0:
         failture = "是 "
@@ -22,7 +22,7 @@ def write_title(test_case, fail_num, html_page, table):
     page = html_page
     html_table = table
     headtr = html_table << tr(id='headline')
-    headtr << th('&nbsp;&nbsp;djy WEB UI TEST&nbsp;&nbsp;', colspan="7", align='center', bgColor=gray_background_color,
+    headtr << th('&nbsp;&nbsp;djy WEB UI TEST&nbsp;&nbsp;', colspan="10", align='center', bgColor=gray_background_color,
                  style="color:#000;font-family:Microsoft Yahei;")
     tr1 = html_table << tr()
     tr1 << td(u"项目名称", colspan="2", align='center', bgColor=gray_background_color,
@@ -33,9 +33,11 @@ def write_title(test_case, fail_num, html_page, table):
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     tr1 << td(u"是否通过", colspan="2", align='center', bgColor=gray_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
+    tr1 << td(u"测试浏览器", colspan="2", align='center', bgColor=gray_background_color,
+              style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     tr2 = html_table << tr()
     now_time = arrow.now().format("YYYY-MM-DD HH:mm:ss ZZ")
-    tr2 << td(u'党建云测试', colspan="2", align='center', bgColor=white_background_color,
+    tr2 << td(u'cec基础版', colspan="2", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     tr2 << td(test_case, colspan="2", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
@@ -43,9 +45,11 @@ def write_title(test_case, fail_num, html_page, table):
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     tr2 << td(failture, colspan="2", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
+    tr2 << td(browser, colspan="2", align='center', bgColor=white_background_color,
+              style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
 
     tr3 = html_table << tr()
-    tr3 << td(u"具体测试步骤执行情况", colspan="8", align='center', bgColor=gray_background_color,
+    tr3 << td(u"具体测试步骤执行情况", colspan="10", align='center', bgColor=gray_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
 
     # print page
@@ -56,11 +60,11 @@ def write_title(test_case, fail_num, html_page, table):
 # 测试用例的表头
 def write_table_title(title_table):
     _tr = title_table << tr()
-    _tr << td(u'测试用例', colspan="2", align='center', bgColor=gray_background_color,
+    _tr << td(u'测试用例', colspan="3", align='center', bgColor=gray_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
-    _tr << td(u'主要操作', colspan="3", align='center', bgColor=gray_background_color,
+    _tr << td(u'主要操作', colspan="4", align='center', bgColor=gray_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
-    _tr << td(u'是否通过', colspan="2", align='center', bgColor=gray_background_color,
+    _tr << td(u'是否通过', colspan="3", align='center', bgColor=gray_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     return title_table
 
@@ -72,11 +76,11 @@ def write_html(step, main_info, failnum, content_table):
     else:
         failture = "否"
     _tr = content_table << tr()
-    _tr << td(step, colspan="2", align='center', bgColor=white_background_color,
+    _tr << td(step, colspan="3", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
-    _tr << td(main_info, colspan="3", align='center', bgColor=white_background_color,
+    _tr << td(main_info, colspan="4", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
-    _tr << td(failture, colspan="2", align='center', bgColor=white_background_color,
+    _tr << td(failture, colspan="3", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     return content_table
 
@@ -89,10 +93,10 @@ def judge_file_path_exist(path):
 
 
 # 写整个html文件
-def write_whole_html_file(Testcase, fail_num, result_list):
+def write_whole_html_file(Testcase, fail_num, result_list, browser):
     html_file = PyH('TEST webUI report')
     html_table = html_file << table(border="2", cellpadding="2", cellspacing="0")
-    write_title(Testcase, fail_num, html_file, html_table)
+    write_title(Testcase, fail_num, html_file, html_table, browser)
     for result in result_list:
         write_table_title(html_table)
         write_html(result[0], result[1], result[2], html_table)
