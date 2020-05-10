@@ -39,44 +39,10 @@ def get_scene_from_json(scenes):
     with open("testcase.txt", "rb") as f:
         scene_dict = json.load(f)
         for i in scene:
-            if i in scene_dict.keys():
+            if i.decode("utf-8") in scene_dict.keys():
                 scene_list.append(scene_dict[i.decode("utf-8")])
     # print scene_list
     return scene_list
-
-
-
-
-
-
-# 发送邮件
-def send_html_mail(test_case, fail_num, mail_list, browser):
-    output_file = write_html.write_whole_html_file(test_case, fail_num, mail_list, browser)
-    # send_mail.send_mail_to_group(output_file)
-
-
-# 执行汇总
-def ui_test(browser, test_case, scene):
-    html_list = []
-    if browser == "chrome":
-        test_browser = webdriver.Chrome()
-    elif browser == "firefox":
-        test_browser = webdriver.Firefox()
-    elif browser == "ie":
-        test_browser = webdriver.ie()
-    test_case1_list = test_case
-    # test_case1_list = [open_web_ui_test, click_register_ui_test, get_into_lesson, add_meeting]
-    num = 0
-    while num < len(test_case1_list):
-        test_num = test_case1_list[num](html_list, test_browser)
-
-        if judge_fail_num(test_num):
-            print "continue"
-        else:
-            break
-        num = num + 1
-
-    send_html_mail(scene, test_num, html_list, browser)
 
 
 def test(scene, test_browser):
