@@ -37,10 +37,12 @@ def get_scene_from_json(scenes):
     scene_list = []
     scenes = scenes.replace("\"", "")
     scene = scenes.split(",")
+    print scene[0].decode("utf-8")
     with open("testcase.txt", "rb") as f:
         scene_dict = json.load(f)
+        print scene_dict
         for i in scene:
-            if i.decode("utf-8") in scene_dict.keys():
+            if i in scene_dict.keys():
                 scene_list.append(scene_dict[i.decode("utf-8")])
     # print scene_list
     return scene_list
