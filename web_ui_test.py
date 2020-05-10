@@ -35,6 +35,7 @@ def trans_time(origin_time):
 # 读取本次需要执行的场景
 def get_scene_from_json(scenes):
     scene_list = []
+    scenes = scenes.replace("\"", "")
     scene = scenes.split(",")
     with open("testcase.txt", "rb") as f:
         scene_dict = json.load(f)
