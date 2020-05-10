@@ -43,6 +43,9 @@ def get_scene_from_json(scenes):
         print scene_dict
         for i in scene:
             for _key in scene_dict.keys():
+                import sys
+                reload(sys)
+                sys.setdefaultencoding('utf-8')
                 if i == _key:
                     scene_list.append(scene_dict[i.decode("utf-8")])
     print scene_list
