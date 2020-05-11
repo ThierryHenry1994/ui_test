@@ -54,8 +54,7 @@ def test(scene, test_browser):
 if __name__ == "__main__":
     # test_list = [open_web_ui_test, click_register_ui_test, get_into_lesson, add_meeting]
     # ui_test(browser=test_browser, test_case=test_list, scene=scene)
-    # fire.Fire(test)
-    test("\"shyk(三会一课),login(登录)\"", "chrome")
+    fire.Fire(test)
 
 
 
