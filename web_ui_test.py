@@ -10,6 +10,7 @@ import time
 import sys
 import fire
 import logging
+import imp
 sys.path.append('Testcase')
 reload(sys)
 sys.setdefaultencoding("UTF-8")
@@ -22,47 +23,39 @@ gray_background_color = "#AAAAAA"
 white_background_color = "#F7F7F7"
 
 
-# 转换时间 将s转换成ms
-def trans_time(origin_time):
-    _time = ('%.2f' % (origin_time*1000))
-    response_time = str(_time)+"ms"
-    return response_time
-
-
-
-
-
 # 读取本次需要执行的场景
 def get_scene_from_json(scenes):
     scene_list = []
     scenes = scenes.replace("\"", "")
     scene = scenes.split(",")
+    for i in scene:
+        scene_list.append(i.split("(")[0]+".py")
 
-    with open("testcase.txt", "rb") as f:
-        scene_dict = json.load(f)
-        print scene_dict
-        for i in scene:
-            for _key in scene_dict.keys():
-                import sys
-                reload(sys)
-                sys.setdefaultencoding('utf-8')
-                if i == _key:
-                    scene_list.append(scene_dict[i.decode("utf-8")])
     print scene_list
     return scene_list
 
 
 def test(scene, test_browser):
     scene_list = get_scene_from_json(scene)
+    write_dict = {}
     for num in scene_list:
-        os.system("python Testcase/"+num+" "+test_browser)
-        print num
+        model_name = "Testcase."+num.split(".")[0]
+        model_path = "Testcase/"+num
+
+        test_obj = imp.load_source(model_name, model_path)
+
+        scene_name, html_list = test_obj.ui_test(test_browser)
+
+        write_dict[scene_name] = html_list
+    print write_dict
+    write_html.write_whole_html_file(write_dict, test_browser)
 
 
 if __name__ == "__main__":
     # test_list = [open_web_ui_test, click_register_ui_test, get_into_lesson, add_meeting]
     # ui_test(browser=test_browser, test_case=test_list, scene=scene)
-    fire.Fire(test)
+    # fire.Fire(test)
+    test("\"shyk(三会一课),login(登录)\"", "chrome")
 
 
 

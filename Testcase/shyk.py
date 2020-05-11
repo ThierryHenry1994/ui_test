@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 from selenium import webdriver
-# from pyh2 import*
-# import send_mail
 import write_html
-import json
-import os
 import time
 import sys
 import fire
@@ -118,6 +114,7 @@ def send_html_mail(file_name, test_case, fail_num, mail_list, browser):
 
 
 def ui_test(browser):
+    scene = "三会一课"
     html_list = []
     if browser == "chrome":
         test_browser = webdriver.Chrome()
@@ -135,9 +132,9 @@ def ui_test(browser):
         else:
             break
         num = num + 1
-    # return html_list
-    scene = "三会一课"
-    send_html_mail("test1", scene, test_num, html_list, browser)
+    return scene, html_list
+
+    # send_html_mail("test1", scene, test_num, html_list, browser)
 
 
 if __name__ == "__main__":

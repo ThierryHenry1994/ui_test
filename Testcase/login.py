@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 from selenium import webdriver
-# from pyh2 import*
-# import send_mail
-import write_html
-import json
-import os
 import time
 import sys
 import fire
@@ -62,11 +57,8 @@ def click_register_ui_test(statistics_list, web_browser):
     return register_failnum
 
 
-def send_html_mail(file_name, test_case, fail_num, mail_list, browser):
-    output_file = write_html.write_whole_html_file(file_name, test_case, fail_num, mail_list, browser)
-
-
 def ui_test(browser):
+    scene = "登录"
     html_list = []
     if browser == "chrome":
         test_browser = webdriver.Chrome()
@@ -84,9 +76,7 @@ def ui_test(browser):
         else:
             break
         num = num + 1
-    # return html_list
-    scene = "登录"
-    send_html_mail("test2", scene, test_num, html_list, browser)
+    return scene, html_list
 
 
 if __name__ == "__main__":

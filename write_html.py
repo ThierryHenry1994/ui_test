@@ -21,9 +21,7 @@ def write_title(test_case, fail_num, html_page, table, browser):
         failture = "否"
     page = html_page
     html_table = table
-    headtr = html_table << tr(id='headline')
-    headtr << th('&nbsp;&nbsp;djy WEB UI TEST&nbsp;&nbsp;', colspan="10", align='center', bgColor=gray_background_color,
-                 style="color:#000;font-family:Microsoft Yahei;")
+
     tr1 = html_table << tr()
     tr1 << td(u"项目名称", colspan="2", align='center', bgColor=gray_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
@@ -92,14 +90,31 @@ def judge_file_path_exist(path):
         os.mkdir("html_file")
 
 
+# 判断运行结果中是否有失败的
+def judge_fail_in_list(test_list):
+    fail_number = 0
+    for i in test_list:
+        if i[-1] != 0:
+            fail_number += 1
+    if fail_number !=0:
+        return 1
+    else:
+        return 0
+
+
 # 写整个html文件
-def write_whole_html_file(Testcase, fail_num, result_list, browser):
+def write_whole_html_file(write_dict, browser):
     html_file = PyH('TEST webUI report')
     html_table = html_file << table(border="2", cellpadding="2", cellspacing="0")
-    write_title(Testcase, fail_num, html_file, html_table, browser)
-    for result in result_list:
-        write_table_title(html_table)
-        write_html(result[0], result[1], result[2], html_table)
+    headtr = html_table << tr(id='headline')
+    headtr << th('&nbsp;&nbsp;djy WEB UI TEST&nbsp;&nbsp;', colspan="10", align='center', bgColor=gray_background_color,
+                 style="color:#000;font-family:Microsoft Yahei;")
+    for key, value in write_dict.items():
+        fail_num = judge_fail_in_list(value)
+        write_title(key, fail_num, html_file, html_table, browser)
+        for result in value:
+            write_table_title(html_table)
+            write_html(result[0], result[1], result[2], html_table)
     # 判断是否存在存放html的文件夹
     # judge_file_path_exist("html_file")
     nowtime = arrow.utcnow().timestamp
