@@ -19,11 +19,11 @@ def judge_fail_num(number):
 # 测试用例中的测试步骤
 def open_web_ui_test(statistics_list, web_browser):
 
-    step = u"打开cec党建云平台"
-    main_info = u"通过域名访问党建云平台"
+    step = u"打开dm党建云平台"
+    main_info = u"通过ip访问党建云平台"
     browser = web_browser
     try:
-        browser.get("http://10.2.57.30/front-djy-web/login")
+        browser.get("http://192.168.1.106/front-djy-web/login")
         browser.find_element_by_xpath("//*[@id=\"userName\"]")
         failnum = 0
     except Exception as e:
@@ -41,7 +41,7 @@ def click_register_ui_test(statistics_list, web_browser):
     main_info = u"登录测试账号"
     click_browser = web_browser
     try:
-        click_browser.find_element_by_xpath("//*[@id=\"userName\"]").send_keys("csdy")
+        click_browser.find_element_by_xpath("//*[@id=\"userName\"]").send_keys("guojun")
         click_browser.find_element_by_xpath("//*[@id=\"password\"]").send_keys("css12345")
         time.sleep(2)
         click_browser.find_element_by_xpath("//*[@id=\"loginEle\"]").click()
