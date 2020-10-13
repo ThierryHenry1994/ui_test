@@ -35,7 +35,7 @@ def write_title(test_case, fail_num, html_page, table, browser):
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     tr2 = html_table << tr()
     now_time = arrow.now().format("YYYY-MM-DD HH:mm:ss ZZ")
-    tr2 << td(u'cec基础版', colspan="2", align='center', bgColor=white_background_color,
+    tr2 << td(u'DM基础版', colspan="2", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
     tr2 << td(test_case, colspan="2", align='center', bgColor=white_background_color,
               style="color:#000;font-family:Microsoft Yahei;font-weight:normal")
@@ -104,10 +104,10 @@ def judge_fail_in_list(test_list):
 
 # 写整个html文件
 def write_whole_html_file(write_dict, browser):
-    html_file = PyH('TEST webUI report')
+    html_file = PyH('TEST DMwebUI report')
     html_table = html_file << table(border="2", cellpadding="2", cellspacing="0")
     headtr = html_table << tr(id='headline')
-    headtr << th('&nbsp;&nbsp;djy WEB UI TEST&nbsp;&nbsp;', colspan="10", align='center', bgColor=gray_background_color,
+    headtr << th('&nbsp;&nbsp;DMdjy WEB UI TEST&nbsp;&nbsp;', colspan="10", align='center', bgColor=gray_background_color,
                  style="color:#000;font-family:Microsoft Yahei;")
     for key, value in write_dict.items():
         fail_num = judge_fail_in_list(value)
