@@ -24,6 +24,7 @@ def open_web_ui_test(statistics_list, web_browser):
     browser = web_browser
     try:
         browser.get("http://192.168.1.106/front-djy-web/login")
+        time.sleep(3)
         browser.find_element_by_xpath("//*[@id=\"userName\"]")
         failnum = 0
     except Exception as e:
