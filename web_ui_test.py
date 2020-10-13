@@ -16,7 +16,7 @@ reload(sys)
 sys.setdefaultencoding("UTF-8")
 '''
 __author__ == junguo
-__time__ == 2019/6/25 20:24
+__time__ == 2020/10/12 20:24
 __detail__ == 处理ui的文件
 '''
 gray_background_color = "#AAAAAA"
